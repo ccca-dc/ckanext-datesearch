@@ -9,10 +9,13 @@
   {# This <section> is the date-range picker widget in the sidebar. #}
   <section class="module module-narrow module-shallow">
     <h2 class="module-heading">
-      <i class="icon-medium icon-calendar"></i> {{ _('Publication Year') }}
+      <i class="icon-medium icon-calendar"></i> {{ _('Search by year') }}
       <a href="{{ h.remove_url_param(['ext_startdate', 'ext_enddate']) }}" class="action">{{ _('Clear') }}</a>
     </h2>
+    {#} Didn't know wherefor "daterange-query" ... removed ... Anja 30.2.17
     <div class="module-content input-prepend input-daterange" data-module="daterange-query" id="datepicker">
+    {#}
+      <div class="module-content input-prepend input-daterange" data-module="daterange-module" id="datepicker">
       <input type="text" class="input-mini" style="cursor:pointer;" readonly="" name="start" id="start" data-module="daterangepicker-module" />
       <span class="add-on" style="border:none;background-color:#ffffff;">&nbsp;&nbsp;to&nbsp;&nbsp;</span>
       <input type="text" class="input-mini" style="cursor:pointer;" readonly="" name="end" id="end" data-module="daterangepicker-module" />

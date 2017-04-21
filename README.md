@@ -9,3 +9,8 @@ GNU Affero General Public License version 3 (AGPLv3)
 
 ## Acknowledgement
 Originally started by [Sean Hammond](https://github.com/seanh).
+
+##
+
+Enter fields into plugin.py:
+extras_iso_exTempStart and extras_iso_exTempEnd

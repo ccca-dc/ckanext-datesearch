@@ -1,6 +1,7 @@
 this.ckan.module('daterangepicker-module', function ($, _) {
     return {
         initialize: function () {
+            console.log("Date initialized for element: ", this.el);
 
             // Define a new jQuery function to parse parameters from URL
             $.urlParam = function(name) {
@@ -39,7 +40,7 @@ this.ckan.module('daterangepicker-module', function ($, _) {
             $('#datepicker.input-daterange').datepicker({
                 format: "yyyy",
                 startView: 3,
-                minViewMode: 2,
+                minViewMode: 3,
                 keyboardNavigation: false,
                 autoclose: true
             }).on('changeDate', function (ev) {
@@ -48,6 +49,11 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                     // Format the start and end dates into strings in a date format that Solr understands.
                     var v = moment(ev.date);
                     var fs = 'YYYY-MM-DDTHH:mm:ss';
+
+                    console.log(ev.target.name);
+                    console.log(ev.date);
+                    console.log(ev);
+                    console.log(v.format(fs)+'Z');
 
                     switch (ev.target.name) {
                         case 'start':
@@ -69,7 +75,8 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                     }
 
                     // Submit the <form id="dataset-search">.
-                    form.submit();
+                    if (  $('#ext_startdate').val() != ''  &&  $('#ext_enddate').val() != '' )
+                      form.submit();
                 });
         }
     }
