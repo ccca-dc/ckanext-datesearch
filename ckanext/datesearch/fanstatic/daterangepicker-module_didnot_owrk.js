@@ -36,6 +36,46 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                 $('<input type="hidden" id="ext_enddate" name="ext_enddate" />').appendTo(form);
             }
 
+            // Anja neu 24.4.2017
+              $('#start.input-mini').on('change', function (ev){
+
+                console.log("start input event");
+
+                var v = moment(ev.date);
+                var fs = 'YYYY-MM-DDTHH:mm:ss';
+
+                if (ev.target.name != "start")
+                    return;
+                        // Set the value of the hidden <input id="ext_startdate"> to the chosen start date.
+                        if (ev.date) {
+                            $('#ext_startdate').val(v.format(fs) + 'Z');
+                        } else {
+                            $('#ext_startdate').val('');
+                        }
+
+                // Submit the <form id="dataset-search">.
+                if (  $('#ext_startdate').val() != ''  &&  $('#ext_enddate').val() != '' )
+                  form.submit();
+
+              }); //start_event
+            // Anja neu 24.4.2017
+
+              $('#end.input-mini').on('change', function (ev){
+
+                console.log("end input event");
+
+                var v = moment(ev.date);
+                var fs = 'YYYY-MM-DDTHH:mm:ss';
+                if (ev.target.name != "end")
+                    return;
+                        // Set the value of the hidden <input id="ext_enddate"> to the chosen end date.
+                        if (ev.date) {
+                            $('#ext_enddate').val(v.add('y', 1).subtract('s', 1).format(fs) + 'Z');
+                        } else {
+                            $('#ext_enddate').val('');
+                        }
+              });
+
             // Add a date-range picker widget to the <input> with id #daterange
             $('#datepicker.input-daterange').datepicker({
                 format: "yyyy",
@@ -47,37 +87,13 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                     // Bootstrap-daterangepicker calls this function after the user picks a start and end date.
 
                     // Format the start and end dates into strings in a date format that Solr understands.
-                    var v = moment(ev.date);
-                    var fs = 'YYYY-MM-DDTHH:mm:ss';
-                    ev.preventDefault();
-                  	ev.stopPropagation();
-
-                    switch (ev.target.name) {
-                        case 'start':
-                            // Set the value of the hidden <input id="ext_startdate"> to the chosen start date.
-                            if (ev.date) {
-                                $('#ext_startdate').val(v.format(fs) + 'Z');
-                            } else {
-                                $('#ext_startdate').val('');
-                            }
-                            console.log("start event");
-                            break;
-                        case 'end':
-                            // Set the value of the hidden <input id="ext_enddate"> to the chosen end date.
-                            if (ev.date) {
-                                $('#ext_enddate').val(v.add('y', 1).subtract('s', 1).format(fs) + 'Z');
-                            } else {
-                                $('#ext_enddate').val('');
-                            }
-                            console.log("end event");
-
-                            break;
-                    }
 
                     // Submit the <form id="dataset-search">.
-                    if (  $('#ext_startdate').val() != ''  &&  $('#ext_enddate').val() != '' )
-                      form.submit();
-            });
+                if (  $('#ext_startdate').val() != ''  &&  $('#ext_enddate').val() != '' )
+                  form.submit();
+                console.log("change Date event");
+
+                });
         }
     }
 });

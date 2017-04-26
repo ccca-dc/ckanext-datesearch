@@ -2,6 +2,7 @@ import logging
 
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from datetime import datetime
 
 log = logging.getLogger(__name__)
 
@@ -29,13 +30,20 @@ class DateSearchPlugin(plugins.SingletonPlugin):
         if not start_date:
             start_date = '*'
         if not end_date:
+            print ("not end")
             end_date = '*'
 
+        zerodate = datetime.strptime("0001-01-01T00:00:00", '%Y-%m-%dT%H:%M:%S')
+        finaldate = datetime.strptime("9999-01-01T00:00:00", '%Y-%m-%dT%H:%M:%S')
+        zerodate = "0000-00-01T00:00:00Z"
+        finaldate = "9999-99-99T00:00:00Z"
         # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
         fq = search_params.get('fq', '')
         #fq = '{fq} +extras_PublicationTimestamp:[{sd} TO {ed}]'.format(fq=fq, sd=start_date, ed=end_date)
+        print ("**************ANJA datesearch")
         print (fq)
-        fq = '{fq} +extras_iso_exTempStart:[ * TO {sd}] +extras_iso_exTempEnd:[{sd} TO {ed}]'.format(fq=fq, sd=start_date, ed=end_date)
+        #fq = '{fq} +(extras_iso_exTempStart:[{zd} TO {sd}] AND  extras_iso_exTempEnd:[{ed} TO {fd}])'.format(fq=fq, sd=str(start_date), ed=str(end_date), zd=str(zerodate), fd=str(finaldate))
+        fq = '{fq} +(extras_iso_exTempStart:["{zd}" TO "{sd}"] AND  extras_iso_exTempEnd:["{ed}" TO "{fd}"])'.format(fq=fq, sd=str(start_date), ed=str(end_date), zd=str(zerodate), fd=str(finaldate))
 
 
         search_params['fq'] = fq
