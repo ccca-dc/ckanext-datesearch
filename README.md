@@ -12,5 +12,5 @@ Originally started by [Sean Hammond](https://github.com/seanh).
 
 ##
 
-Enter fields into plugin.py:
+time fields defined in plugin.py:
 extras_iso_exTempStart and extras_iso_exTempEnd

@@ -23,12 +23,14 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                 $('#ext_enddate').val(param_end);
             }
 
-            // Add hidden <input> tags #ext_startdate and #ext_enddate, if they don't already exist.
+            // CKAN Search is submitted after date added!" (Comment Anja 27.4.17)
             var form = $("#dataset-search");
             // CKAN 2.1
             if (!form.length) {
                 form = $(".search-form");
             }
+
+            // Add hidden <input> tags #ext_startdate and #ext_enddate, if they don't already exist.// Anja: They are for plugin.py
             if ($("#ext_startdate").length === 0) {
                 $('<input type="hidden" id="ext_startdate" name="ext_startdate" />').appendTo(form);
             }
@@ -39,8 +41,10 @@ this.ckan.module('daterangepicker-module', function ($, _) {
             // Add a date-range picker widget to the <input> with id #daterange
             $('#datepicker.input-daterange').datepicker({
                 format: "yyyy",
-                startView: 3,
-                minViewMode: 3,
+                startView: 2,
+                minViewMode: 2,
+                startDate: "2000",
+                endDate: "2100",
                 keyboardNavigation: false,
                 autoclose: true
             }).on('changeDate', function (ev) {
@@ -58,7 +62,7 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                             if (ev.date) {
                                 $('#ext_startdate').val(v.format(fs) + 'Z');
                             } else {
-                                $('#ext_startdate').val('');
+                                //$('#ext_startdate').val('');
                             }
                             console.log("start event");
                             break;
@@ -67,7 +71,7 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                             if (ev.date) {
                                 $('#ext_enddate').val(v.add('y', 1).subtract('s', 1).format(fs) + 'Z');
                             } else {
-                                $('#ext_enddate').val('');
+                              //  $('#ext_enddate').val('');
                             }
                             console.log("end event");
 
@@ -75,7 +79,7 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                     }
 
                     // Submit the <form id="dataset-search">.
-                    if (  $('#ext_startdate').val() != ''  &&  $('#ext_enddate').val() != '' )
+                  //  if (  $('#ext_startdate').val() != ''  &&  $('#ext_enddate').val() != '' )
                       form.submit();
             });
         }
