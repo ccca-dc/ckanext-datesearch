@@ -14,4 +14,4 @@ Originally started by [Sean Hammond](https://github.com/seanh).
 
 Adapted to consider a  data range of a dataset
 time fields defined in plugin.py:
-extras_iso_exTempStart and extras_iso_exTempEnd
+extras_temporal_start and extras_temporal_end
