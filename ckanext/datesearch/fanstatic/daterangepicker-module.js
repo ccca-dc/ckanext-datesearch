@@ -43,8 +43,8 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                 format: "yyyy",
                 startView: 2,
                 minViewMode: 2,
-                startDate: "2000",
-                endDate: "2100",
+                startDate: "1000",
+                endDate: "2500",
                 keyboardNavigation: false,
                 autoclose: true
             }).on('changeDate', function (ev) {
